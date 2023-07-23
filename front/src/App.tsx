@@ -1,4 +1,6 @@
 import styles from './App.module.css';
+import EditUserForm from './container/CreateUserForm copy/EditUserForm';
+import CreateUserForm from './container/CreateUserForm/CreateUserForm';
 import { useDeleteUserMutation, useGetUsersQuery } from './store/controllers/userApi';
 
 const App = () => {
@@ -10,12 +12,14 @@ const App = () => {
    
   return (
    <div className={styles.container}>
+        <CreateUserForm />
         {data && data.map((user) => {
           return (
             <div key={user.id} className={styles.userItems}>
-               <p className={styles.userText}>name: {user.email}</p> 
+               <p className={styles.userText}>name: {user.name}</p> 
                <p className={styles.userText}>email: {user.email}</p>
-               <button onClick={() => deleteHandler(user.id)}>delete</button>
+               <button onClick={() => deleteHandler(user.id)}>Удалить</button>
+               <EditUserForm data={user}/>
             </div>
           )
         })}

@@ -1,4 +1,5 @@
 import { IUser } from "../../interfaces/IUser";
+import { IUserPre } from "../../interfaces/IUserPre";
 import { api } from "../api";
 
 export const userApi  = api.injectEndpoints({
@@ -16,7 +17,33 @@ export const userApi  = api.injectEndpoints({
             invalidatesTags: ["User"]
         }),
 
-    })
+        addUser: builder.mutation<IUser, IUserPre>({
+            query: (body: IUserPre)=> ({
+                url: `/users`,
+                method: "POST",
+                body
+            }),
+            invalidatesTags: ["User"]
+        }),
+
+        editUser: builder.mutation<IUser, IUser>({
+            query: (data: IUser) => {
+                const {id, ...body} = data;
+                return {
+                    url: `/users/${id}`,
+                    method: "PUT",
+                    body
+                }
+            },
+            invalidatesTags: ["User"]
+        }),
+
+    }),
 })
 
-export const { useGetUsersQuery, useDeleteUserMutation} = userApi;
+export const { 
+                useGetUsersQuery,
+                useDeleteUserMutation,
+                useAddUserMutation,
+                useEditUserMutation
+            } = userApi;

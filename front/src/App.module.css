@@ -32,6 +32,6 @@ button {
   border-radius: 10px;
 }
 
-button:hover {
+button:not(:disabled):hover {
   background: rgb(209, 207, 207);
 }
